@@ -1,0 +1,14 @@
+[package]
+name = "napi-deno-template"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = "3.8.4"
+napi-derive = "3.5.3"
+
+[build-dependencies]
+napi-build = "2.3.1"
