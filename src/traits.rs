@@ -1,4 +1,6 @@
+use napi::bindgen_prelude::ToNapiValue;
+
 pub trait Arbitrary {
-    type Output;
+    type Output: ToNapiValue;
     fn generate(&self) -> Self::Output;
 }

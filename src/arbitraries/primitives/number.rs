@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::External;
 use napi_derive::napi;
 
 use crate::traits::Arbitrary;
@@ -23,8 +24,8 @@ impl Arbitrary for IntegerArbitrary {
 }
 
 #[napi]
-pub fn integer(option: Option<IntegerOption>) -> napi::Result<IntegerArbitrary> {
-    Ok(IntegerArbitrary(option))
+pub fn integer(option: Option<IntegerOption>) -> napi::Result<External<IntegerArbitrary>> {
+    Ok(External::new(IntegerArbitrary(option)))
 }
 
 #[napi(object)]
@@ -46,8 +47,8 @@ impl Arbitrary for NatArbitrary {
 }
 
 #[napi]
-pub fn nat(option: Option<NatOption>) -> napi::Result<NatArbitrary> {
-    Ok(NatArbitrary(option))
+pub fn nat(option: Option<NatOption>) -> napi::Result<External<NatArbitrary>> {
+    Ok(External::new(NatArbitrary(option)))
 }
 
 #[napi]
@@ -63,8 +64,8 @@ impl Arbitrary for MaxSafeIntegerArbitrary {
 }
 
 #[napi]
-pub fn max_safe_integer() -> napi::Result<MaxSafeIntegerArbitrary> {
-    Ok(MaxSafeIntegerArbitrary)
+pub fn max_safe_integer() -> napi::Result<External<MaxSafeIntegerArbitrary>> {
+    Ok(External::new(MaxSafeIntegerArbitrary))
 }
 
 #[napi]
@@ -80,8 +81,8 @@ impl Arbitrary for MaxSafeNatArbitrary {
 }
 
 #[napi]
-pub fn max_safe_nat() -> napi::Result<MaxSafeNatArbitrary> {
-    Ok(MaxSafeNatArbitrary)
+pub fn max_safe_nat() -> napi::Result<External<MaxSafeNatArbitrary>> {
+    Ok(External::new(MaxSafeNatArbitrary))
 }
 
 #[napi(object)]
@@ -130,8 +131,8 @@ impl Arbitrary for FloatArbitrary {
 }
 
 #[napi]
-pub fn float(option: FloatOption) -> napi::Result<FloatArbitrary> {
-    Ok(FloatArbitrary(option))
+pub fn float(option: FloatOption) -> napi::Result<External<FloatArbitrary>> {
+    Ok(External::new(FloatArbitrary(option)))
 }
 
 #[napi(object)]
@@ -180,6 +181,6 @@ impl Arbitrary for DoubleArbitrary {
 }
 
 #[napi]
-pub fn double(option: DoubleOption) -> napi::Result<DoubleArbitrary> {
-    Ok(DoubleArbitrary(option))
+pub fn double(option: DoubleOption) -> napi::Result<External<DoubleArbitrary>> {
+    Ok(External::new(DoubleArbitrary(option)))
 }

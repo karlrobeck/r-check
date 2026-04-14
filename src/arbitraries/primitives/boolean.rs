@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::External;
 use napi_derive::napi;
 
 use crate::traits::Arbitrary;
@@ -14,6 +15,6 @@ impl Arbitrary for BooleanArbitrary {
 }
 
 #[napi]
-pub fn boolean() -> napi::Result<BooleanArbitrary> {
-    Ok(BooleanArbitrary)
+pub fn boolean() -> napi::Result<External<BooleanArbitrary>> {
+    Ok(External::new(BooleanArbitrary))
 }

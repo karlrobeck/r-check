@@ -1,4 +1,4 @@
-use napi::bindgen_prelude::BigInt;
+use napi::bindgen_prelude::{BigInt, External};
 use napi_derive::napi;
 
 use crate::traits::Arbitrary;
@@ -30,6 +30,6 @@ impl Arbitrary for BigIntArbitrary {
 }
 
 #[napi]
-pub fn bigint(min: Option<BigInt>, max: Option<BigInt>) -> BigIntArbitrary {
-    BigIntArbitrary(Some(BigIntOption { min, max }))
+pub fn bigint(min: Option<BigInt>, max: Option<BigInt>) -> External<BigIntArbitrary> {
+    External::new(BigIntArbitrary(Some(BigIntOption { min, max })))
 }

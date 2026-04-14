@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::External;
 use napi_derive::napi;
 
 use crate::traits::Arbitrary;
@@ -54,6 +55,6 @@ impl Arbitrary for StringArbitrary {
 }
 
 #[napi]
-pub fn string(option: StringOption) -> napi::Result<StringArbitrary> {
-    Ok(StringArbitrary(option))
+pub fn string(option: StringOption) -> napi::Result<External<StringArbitrary>> {
+    Ok(External::new(StringArbitrary(option)))
 }
