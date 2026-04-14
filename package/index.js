@@ -579,7 +579,10 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { DoubleArbitrary, FloatArbitrary, IntegerArbitrary, MaxSafeIntegerArbitrary, MaxSafeNatArbitrary, NatArbitrary, StringArbitrary, boolean, double, float, integer, maxSafeInteger, maxSafeNat, nat, string, StringUnit } = nativeBinding
+const { BigIntArbitrary, BooleanArbitrary, DateArbitrary, DoubleArbitrary, FloatArbitrary, IntegerArbitrary, MaxSafeIntegerArbitrary, MaxSafeNatArbitrary, NatArbitrary, StringArbitrary, bigint, boolean, double, float, integer, maxSafeInteger, maxSafeNat, nat, string, StringUnit } = nativeBinding
+export { BigIntArbitrary }
+export { BooleanArbitrary }
+export { DateArbitrary }
 export { DoubleArbitrary }
 export { FloatArbitrary }
 export { IntegerArbitrary }
@@ -587,6 +590,7 @@ export { MaxSafeIntegerArbitrary }
 export { MaxSafeNatArbitrary }
 export { NatArbitrary }
 export { StringArbitrary }
+export { bigint }
 export { boolean }
 export { double }
 export { float }
