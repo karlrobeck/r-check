@@ -43,6 +43,10 @@ export declare class NatArbitrary {
 
 }
 
+export declare class OneOfArbitrary {
+
+}
+
 export declare class StringArbitrary {
 
 }
@@ -100,6 +104,20 @@ export declare function nat(option?: NatOption | undefined | null): ExternalObje
 
 export interface NatOption {
   max?: number
+}
+
+export declare function oneof(arbs: Array<OneOfItemOptions> | Array<PrimitiveArbs>, options?: OneOfOptions | undefined | null): OneOfArbitrary
+
+export interface OneOfItemOptions {
+  arbitrary: PrimitiveArbs
+  weight?: number
+}
+
+export interface OneOfOptions {
+  withCrossShrink?: boolean
+  maxDepth?: number
+  depthSize?: number
+  depthIdentifier?: string
 }
 
 export type PrimitiveArbs<> =

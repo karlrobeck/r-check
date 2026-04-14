@@ -1,7 +1,4 @@
-use napi::{
-    Either, Env,
-    bindgen_prelude::{Either10, External, ExternalRef, Reference, ToNapiValue},
-};
+use napi::bindgen_prelude::{Either10, External};
 use napi_derive::napi;
 
 use crate::{
@@ -35,6 +32,6 @@ impl Arbitrary for TupleArbitrary {
 }
 
 #[napi]
-pub fn tuple<'a>(arbs: Vec<PrimitiveArbs<'a>>) -> napi::Result<TupleArbitrary> {
-    Ok(TupleArbitrary(arbs))
+pub fn tuple<'a>(arbs: Vec<PrimitiveArbs<'a>>) -> napi::Result<External<TupleArbitrary>> {
+    Ok(External::new(TupleArbitrary(arbs)))
 }
