@@ -7,7 +7,7 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi = "3.8.4"
+napi = {version = "3.8.4", features = ["napi5"]}
 napi-derive = "3.5.3"
 rand = "0.10.1"
 
