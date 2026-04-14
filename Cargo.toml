@@ -9,6 +9,7 @@ crate-type = ["cdylib"]
 [dependencies]
 napi = "3.8.4"
 napi-derive = "3.5.3"
+rand = "0.10.1"
 
 [build-dependencies]
 napi-build = "2.3.1"
