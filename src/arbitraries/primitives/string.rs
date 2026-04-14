@@ -1,5 +1,7 @@
 use napi_derive::napi;
 
+use crate::traits::Arbitrary;
+
 #[napi]
 pub enum StringUnit {
     Ascii,
@@ -19,27 +21,39 @@ pub struct StringOption {
 }
 
 #[napi]
-pub fn string(option: StringOption) -> napi::Result<String> {
-    let unit = option.unit.unwrap_or(StringUnit::Unicode);
-    let min_length = option.min_length.unwrap_or(0);
-    let max_length = option.max_length.unwrap_or(100);
+pub struct StringArbitrary(StringOption);
 
-    let size = option.size.unwrap_or_else(|| {
-        if min_length > max_length {
-            min_length
-        } else {
-            rand::random::<i64>() % (max_length - min_length + 1) + min_length
-        }
-    });
+impl Arbitrary for StringArbitrary {
+    type Output = String;
 
-    let chars: Vec<char> = match unit {
-        StringUnit::Ascii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
-        StringUnit::Unicode => (0..size).map(|_| rand::random::<char>()).collect(),
-        StringUnit::Grapheme => (0..size).map(|_| rand::random::<char>()).collect(),
-        StringUnit::GraphemeComposite => (0..size).map(|_| rand::random::<char>()).collect(),
-        StringUnit::GraphemeAscii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
-        StringUnit::BinaryAscii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
-    };
+    fn generate(&self) -> Self::Output {
+        let option = &self.0;
+        let unit = option.unit.as_ref().unwrap_or(&StringUnit::Unicode);
+        let min_length = option.min_length.unwrap_or(0);
+        let max_length = option.max_length.unwrap_or(100);
 
-    Ok(chars.into_iter().collect())
+        let size = option.size.unwrap_or_else(|| {
+            if min_length > max_length {
+                min_length
+            } else {
+                rand::random::<i64>() % (max_length - min_length + 1) + min_length
+            }
+        });
+
+        let chars: Vec<char> = match unit {
+            StringUnit::Ascii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
+            StringUnit::Unicode => (0..size).map(|_| rand::random::<char>()).collect(),
+            StringUnit::Grapheme => (0..size).map(|_| rand::random::<char>()).collect(),
+            StringUnit::GraphemeComposite => (0..size).map(|_| rand::random::<char>()).collect(),
+            StringUnit::GraphemeAscii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
+            StringUnit::BinaryAscii => (0..size).map(|_| rand::random::<u8>() as char).collect(),
+        };
+
+        chars.into_iter().collect()
+    }
+}
+
+#[napi]
+pub fn string(option: StringOption) -> napi::Result<StringArbitrary> {
+    Ok(StringArbitrary(option))
 }
