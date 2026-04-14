@@ -72,11 +72,11 @@ pub fn max_safe_integer() -> napi::Result<External<MaxSafeIntegerArbitrary>> {
 pub struct MaxSafeNatArbitrary;
 
 impl Arbitrary for MaxSafeNatArbitrary {
-    type Output = u32;
+    type Output = u64;
 
     fn generate(&self) -> Self::Output {
         const MAX_SAFE_INTEGER: u64 = 9007199254740991; // 2^53 - 1
-        (rand::random::<u64>() % (MAX_SAFE_INTEGER + 1)) as u32
+        (rand::random::<u64>() % (MAX_SAFE_INTEGER + 1)) as u64
     }
 }
 

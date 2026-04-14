@@ -12,20 +12,20 @@ pub struct BigIntOption {
 pub struct BigIntArbitrary(pub(crate) Option<BigIntOption>);
 
 impl Arbitrary for BigIntArbitrary {
-    type Output = u64;
+    type Output = u128;
 
     fn generate(&self) -> Self::Output {
         let option = self.0.as_ref();
         let min = option
             .and_then(|o| o.min.as_ref())
-            .map(|b| b.get_u64().1)
+            .map(|b| b.get_u128().1)
             .unwrap_or(0);
         let max = option
             .and_then(|o| o.max.as_ref())
-            .map(|b| b.get_u64().1)
-            .unwrap_or(u64::MAX);
+            .map(|b| b.get_u128().1)
+            .unwrap_or(u128::MAX);
 
-        rand::random::<u64>() % (max - min + 1) + min
+        rand::random::<u128>() % (max - min + 1) + min
     }
 }
 

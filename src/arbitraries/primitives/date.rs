@@ -14,7 +14,7 @@ pub struct DateOption<'a> {
 pub struct DateArbitrary<'a>(pub(crate) DateOption<'a>);
 
 impl<'a> Arbitrary for DateArbitrary<'a> {
-    type Output = ();
+    type Output = f64;
 
     fn generate(&self) -> Self::Output {
         let option = &self.0;
@@ -40,7 +40,7 @@ impl<'a> Arbitrary for DateArbitrary<'a> {
         let timestamp = rand::random::<u64>() % (max - min + 1) + min;
         // std::time::UNIX_EPOCH + std::time::Duration::from_secs(timestamp)
 
-        ()
+        (0.0)
     }
 }
 

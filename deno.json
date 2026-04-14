@@ -8,7 +8,7 @@
   "imports": {
     "@napi-rs/cli": "npm:@napi-rs/cli@^3.6.1",
     "@std/assert": "jsr:@std/assert@1",
-    "my-package":"./package/index.ts"
+    "r-check":"./package/index.ts"
   },
   "compilerOptions": {
     "types": ["./package/index.d.ts"]

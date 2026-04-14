@@ -103,9 +103,12 @@ export interface NatOption {
 }
 
 export type PrimitiveArbs<> =
-  BooleanArbitrary | BigIntArbitrary | IntegerArbitrary | NatArbitrary | MaxSafeIntegerArbitrary | MaxSafeNatArbitrary | StringArbitrary | FloatArbitrary | DoubleArbitrary | DateArbitrary
+  ExternalObject<BooleanArbitrary> | ExternalObject<BigIntArbitrary> | ExternalObject<IntegerArbitrary> | ExternalObject<NatArbitrary> | ExternalObject<MaxSafeIntegerArbitrary> | ExternalObject<MaxSafeNatArbitrary> | ExternalObject<StringArbitrary> | ExternalObject<FloatArbitrary> | ExternalObject<DoubleArbitrary> | ExternalObject<DateArbitrary>
 
-export declare function string(option: StringOption): ExternalObject<StringArbitrary>
+export type PrimitiveValues =
+  any
+
+export declare function string(option?: StringOption | undefined | null): ExternalObject<StringArbitrary>
 
 export interface StringOption {
   unit?: StringUnit

@@ -3,6 +3,7 @@ use napi_derive::napi;
 
 use crate::traits::Arbitrary;
 
+#[derive(Clone)]
 #[napi]
 pub struct BooleanArbitrary;
 

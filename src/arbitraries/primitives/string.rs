@@ -22,18 +22,21 @@ pub struct StringOption {
 }
 
 #[napi]
-pub struct StringArbitrary(StringOption);
+pub struct StringArbitrary(pub(crate) Option<StringOption>);
 
 impl Arbitrary for StringArbitrary {
     type Output = String;
 
     fn generate(&self) -> Self::Output {
         let option = &self.0;
-        let unit = option.unit.as_ref().unwrap_or(&StringUnit::Unicode);
-        let min_length = option.min_length.unwrap_or(0);
-        let max_length = option.max_length.unwrap_or(100);
+        let unit = option
+            .as_ref()
+            .and_then(|o| o.unit.as_ref())
+            .unwrap_or(&StringUnit::Unicode);
+        let min_length = option.as_ref().and_then(|o| o.min_length).unwrap_or(0);
+        let max_length = option.as_ref().and_then(|o| o.max_length).unwrap_or(100);
 
-        let size = option.size.unwrap_or_else(|| {
+        let size = option.as_ref().and_then(|o| o.size).unwrap_or_else(|| {
             if min_length > max_length {
                 min_length
             } else {
@@ -55,6 +58,6 @@ impl Arbitrary for StringArbitrary {
 }
 
 #[napi]
-pub fn string(option: StringOption) -> napi::Result<External<StringArbitrary>> {
+pub fn string(option: Option<StringOption>) -> napi::Result<External<StringArbitrary>> {
     Ok(External::new(StringArbitrary(option)))
 }

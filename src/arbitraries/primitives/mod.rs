@@ -1,4 +1,4 @@
-use napi::bindgen_prelude::{Either10, External};
+use napi::bindgen_prelude::{Either10, External, ExternalRef};
 use napi_derive::napi;
 
 use crate::arbitraries::primitives::{
@@ -20,14 +20,17 @@ pub mod string;
 
 #[napi]
 pub type PrimitiveArbs<'a> = Either10<
-    BooleanArbitrary,
-    BigIntArbitrary,
-    IntegerArbitrary,
-    NatArbitrary,
-    MaxSafeIntegerArbitrary,
-    MaxSafeNatArbitrary,
-    StringArbitrary,
-    FloatArbitrary,
-    DoubleArbitrary,
-    DateArbitrary<'a>,
+    ExternalRef<BooleanArbitrary>,
+    ExternalRef<BigIntArbitrary>,
+    ExternalRef<IntegerArbitrary>,
+    ExternalRef<NatArbitrary>,
+    ExternalRef<MaxSafeIntegerArbitrary>,
+    ExternalRef<MaxSafeNatArbitrary>,
+    ExternalRef<StringArbitrary>,
+    ExternalRef<FloatArbitrary>,
+    ExternalRef<DoubleArbitrary>,
+    ExternalRef<DateArbitrary<'a>>,
 >;
+
+#[napi]
+pub type PrimitiveValues = Either10<bool, u128, i32, u32, i64, u64, String, f32, f64, f64>;
