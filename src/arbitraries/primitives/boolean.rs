@@ -1,6 +1,19 @@
 use napi_derive::napi;
 
+use crate::traits::Arbitrary;
+
 #[napi]
-pub fn boolean() -> napi::Result<bool> {
-    Ok(rand::random())
+pub struct BooleanArbitrary;
+
+impl Arbitrary for BooleanArbitrary {
+    type Output = bool;
+
+    fn generate(&self) -> Self::Output {
+        rand::random()
+    }
+}
+
+#[napi]
+pub fn boolean() -> napi::Result<BooleanArbitrary> {
+    Ok(BooleanArbitrary)
 }
